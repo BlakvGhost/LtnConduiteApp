@@ -43,3 +43,6 @@ username: blakvghost
 
 ![App Screenshot](screenshot.png)
 
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
