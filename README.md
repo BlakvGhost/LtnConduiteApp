@@ -12,6 +12,8 @@ The application is divided into two parts:
 
 Install my-project with GitHub
 
+### Make sure you already have Python3 and Django>=3.2.9 installed on your machine
+
 ```bash
   git clone https://github.com/BlakvGhost/LtnConduiteApp.git
 
@@ -19,9 +21,12 @@ Install my-project with GitHub
 Unzipp the folder and
 ```bash
     cd LtnConduiteApp-main
+```
+start now the server
+
+```bash
     python3 manage.py runserver
 ```
-
     
 ## Default User Login
 
