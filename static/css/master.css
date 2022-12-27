@@ -1,0 +1,13 @@
+.bg-custom {background-color: #1A4168!important;}
+.bg-main {background-color: #CDCDCD!important}
+.bg-flag {background-color: #6D95B5}
+.br10 {border-radius: 10px;}
+.border-bass {border: 10px solid #6D95B5;}
+td {vertical-align: middle;}
+.w75 {width: 75%}
+.w50 {width: 50%}
+.w25 {width: 25%}
+#list-tab .active {background-color: #1A4168!important;border-top: 2px solid red!important;}
+.sDown i:last-child {display: none}
+.res-tb {margin-right: 1.5rem;margin-left: 1.5rem;}
+header #id_user,#id_inbox { z-index: 5000}

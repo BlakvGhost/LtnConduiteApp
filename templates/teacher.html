@@ -1,0 +1,151 @@
+{% extends 'index.html' %}
+{% block Title %} PAGE DE VOTE DES ENSEIGNANT {% endblock Title %}
+{% block Page %}
+<div class="forReview">
+  <button type="button" name="button" class="d-none" data-bs-target="#reviewModal" data-bs-toggle="modal" id="{{rated}}"></button>
+  <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewLabel" aria-hidden="true">
+<div class="modal-dialog">
+<div class="modal-content">
+  <div class="modal-header">
+    <h5 class="modal-title fw-bold" id="reviewLabel">Appreciation du Site</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  </div>
+  <div class="modal-body text-center">
+    <form action="{% url 'reviewSave' %}" method="post" class="">
+      {% csrf_token %}
+      <input type="hidden" name="rate" value="{{ rate.rate }}" id="id_rate">
+      <input type="hidden" name="state" value="{{ rated }}">
+      <div class="form-group form-group-lg">
+        <label for="message_id" class="form-label fw-bold">{{user.first_name}} {{user.last_name}} que pensez-vous de ce Site ?</label>
+        <textarea name="message" rows="8" cols="80" class="w-100 form-control" id="message_id" placeholder="{{user.first_name}} {{user.last_name}} que pensez-vous de ce Site ..">{{ rate.content }}</textarea>
+      </div>
+      <div class="my-3 rateByStar" data-rate="{{ rate.rate }}">
+        <p>Evaluer le Site en votant les etoiles</p>
+        <a class="m-1 text-decoration-none rate-link"> <i class="fa fa-2x fa-star"></i> </a>
+        <a class="m-1 text-decoration-none rate-link"> <i class="fa fa-2x fa-star"></i> </a>
+        <a class="m-1 text-decoration-none rate-link"> <i class="fa fa-2x fa-star"></i> </a>
+        <a class="m-1 text-decoration-none rate-link"> <i class="fa fa-2x fa-star"></i> </a>
+        <a class="m-1 text-decoration-none rate-link"> <i class="fa fa-2x fa-star"></i> </a>
+      </div>
+      <div class="my-3">
+        <small class="form-text w-100 mt-2" id="RemarqueHelp"><i class="fa fa-info-circle"></i>&nbsp; Cette vote est Facultative, elle sera vu par le Surveillant et permettra d'ameliorer le site. N'exiter pas à signaler tout les bugs rencontrés et vos suggestion. Merci</small>
+      </div>
+      <div class="my-3">
+        <button class="btn btn-success" type="submit">Voter</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Annuler</button>
+    </div>
+    </form>
+  </div>
+</div>
+</div>
+</div>
+{%if warn|length is not 0 %}
+<div class="restoreMdp">
+  <button type="button" name="button" class="okRestorMdpLabel d-none" data-bs-target="#restorMdp" data-bs-toggle="modal"></button>
+  <div class="modal fade" id="restorMdp" tabindex="-1" aria-labelledby="restorMdpLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="restorMdpLabel"><span class="fw-bold">Appreciation du site</span> </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <h4 class="text-dark fw-bold">{{warn}} ,Merci.</h4>
+        <a role="button" href="{% url 'teachers' %}" class="btn btn-primary">Cancel</a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{%endif%}
+</div>
+<main class="teacher">
+  <div class="w-100">
+    <div class="w50 mx-auto py-5 flag">
+      <div class="bg-flag br10 p-3 text-center">
+        <h3 class="m-auto fw-bold text-white">SESSION ENSEIGNANT</h3>
+      </div>
+    </div>
+    <div class="w75 br10 border-bass mx-auto my-3 p-4">
+      <div class="py-5">
+        <div class="bg-flag p-3 text-center">
+          <h4 class="m-auto fw-bold text-white">Terminer de voter en 2 étapes</h4>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <form class="" action="" method="post">
+          {% csrf_token %}
+          {% csrf_token %}
+          {%if info|length is not 0 %}
+          <div class="alert alert-success alert-dismissible" role="alert" id="liveAlert">
+            <strong>Sucess!</strong> {{info}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          {%endif%}
+        <div class="list-group-horizontal list-group" id="list-tab" role="tablist">
+              <a class="list-group-item list-group-item-action active" id="list-home-desc" data-bs-toggle="list"
+                 href="#description" role="tab" aria-controls="list-home">Voter</a>
+              <a class="list-group-item list-group-item-action" id="list-home-review" data-bs-toggle="list"
+                 href="#review" role="tab" aria-controls="list-settings">Reviews</a>
+        </div>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active p-2" id="description" role="tabpanel" aria-labelledby="list-home-desc">
+            <div class="text-center my-3">
+              <small class="text-muted fst-italic"><i class="fa fa-info-circle"></i>&nbsp; Utiliser le button + pour generer des champs de saisie.</small>
+            </div>
+            <div class="">
+                <div class="mx-4 my-3 vote_label">
+                    <div class="row justify-content-between">
+                        <span class="text-dark fw-bolder py-2 col mx-2">Classe</span>
+                        <button class="btn btn-outline-dark col col-2 addSpecification" type="button"><i class="fa fa-plus"></i></button>
+                    </div>
+                    <div class="form-group vote-label">
+                        <div class="input-group input-group-lg my-3 vote-item position-relative" id="detail-0">
+                            <input type="text" name="classe" class="form-control" placeholder="Classe Ex : 1ere IMI" id="id_classe" required autocomplete="off">
+                            <button type="button" class="btn btn-outline-dark input-group-btn btn-light sDown"><i class="fa fa-caret-square-right"></i><i class="fa fa-caret-square-down"></i></button>
+                            <input type="text" name="note" class="form-control" placeholder="Note Ex : 16 " id="id_note" required max="20">
+                            <button type="button" class="btn btn-danger input-group-btn remove-item" data-remove="#detail-0"><i class="fa fa-trash"></i></button>
+                            <small class="form-text invalid-feedback w-100 mt-2 fst-italic" id="classHelp">Veillez selectionner une des classes proposé</small>
+                            <div class="position-absolute top-100 start-0 w-50 overflow-auto" style="z-index:5000;max-height:240px;">
+                              <ul class="list-group" id="label_checkClass">
+                              </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-dark">
+                    </div>
+                    <div class="text-center mt-4">
+                        <a role="button" href="#review" class="btn btn-outline-dark w-50 submit-total">Go Next </a>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="tab-pane fade p-2" id="review" role="tabpanel" aria-labelledby="list-home-review">
+            <div class="text-center my-3">
+              <small class="text-muted fst-italic"><i class="fa fa-info-circle"></i>&nbsp; Laisser un message au surveillant.</small>
+            </div>
+            <div class="text-center">
+              <div class="form-group my-3">
+                <textarea name="message" rows="8" cols="80" class="form-control" placeholder="Laisser un message au surveillant..."></textarea>
+              </div>
+              <button type="submit" name="button" class="btn btn-dark py-3 w-50 mx-auto my-3" id="submit_vote">ENVOYER</button>
+            </div>
+        </div>
+    </div>
+    </form>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="text/javascript">
+  $('.okRestorMdpLabel,#TrueRated').click();
+  $('.rate-link').each(function(px,link){
+    $('.rate-link').slice(0,$('#id_rate').val()).css('color','var(--bs-warning)');
+      $(link).click(function(event) {
+          $('.rate-link').css('color','');
+          $('#id_rate').val(px+1);
+          $('.rate-link').slice(0,px+1).css('color','var(--bs-warning)');
+      });
+  });
+</script>
+{% endblock Page %}

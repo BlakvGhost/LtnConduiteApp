@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/master.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mobile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fa/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-icons.css' %}">
+    <script src="{% static 'js/jquery.js' %}" charset="utf-8"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}" charset="utf-8"></script>
+    <script src="{% static 'js/app.js' %}" charset="utf-8" async></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Le lycée technique de Natitingou ex CET est un lycée technique industriel et commercial qui forme dans plusieurs filières telles que : STI (sciences et techniques industrielles), STT (Sciences et Techniques Tertiaire) a été créé le 4 décembre 1989 et avait pour premier directeur Mr Rigobert TOULASSI. Devenu lycée depuis 2011, LTN a amorcé un élan d’expansion et développement en ouvrant ses portes à plusieurs spécialités encore peu connues des habitants locaux.">
+    <meta name="copyright" content="ATELIER IMI LTN">
+    <meta name="keywords" content="établissement,système,gestion,école,lycéé,technique,bullétin,moyenne,note,calcul,contribution,scolarité,collège,natitingou,commerce,secrétariat,comptabilité,géni-civil,électricité,mécanique générale,mécanique automobile,hôtelerie et restauration,OBB,ouvrage et bâtiment en bois,installation et maintenance en informatique IMI,électro-technique,électrotechnique,bâtiment et travaux publics,eau et assainissement,dessinateur et projecteur bâtiment,pratique,atelier,atacora,bénin,éducation,enseignement">
+    <meta name="DC.title" content="Lycée Technique de Natitingou (LTN)">
+    <meta property="og:title" content="Lycée Technique de Natitingou (LTN)">
+    <meta property="og:url" content="http://www.lt-natitingou.com">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="fr_FR">
+    <meta name="msapplication-tileColor" content="#FFFFFF">
+    <title>{% block Title %} {% endblock Title %} - NOTE DE CONDUITE</title>
+    <link rel="icon" href="{% static 'img/logo-2.png' %}" type="image/png">
+  </head>
+  <body>
+<section id="customModal">
+  <div class="delete-confirmation">
+    <div class="modal fade" id="deleteConfirmation" tabindex="-1" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteConfirmationLabel">Confirm Delete Post</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <h4>Do you really want to remove <span class="toDelete fw-bold fst-italic"></span> ?</h4>
+          <div class="my-3">
+            <button type="button" class="btn btn-danger trueDelete" data-bs-dismiss="modal">Delete</button>
+            <button type="button" class="btn btn-primary cancelDelete" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+  </div>
+  <div class="editConfirmation">
+    <div class="modal fade" id="editConfirmation" tabindex="-1" aria-labelledby="editConfirmationLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editConfirmationLabel">Edit User <span class="teaUserName fw-bold"></span> </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <form class="" action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="id_user" value="" id="id_user">
+            <div class="input-group input-group-lg my-4">
+              <label for="id_id" class="input-group-text">ID</label>
+              <input type="text" name="id" placeholder="ID..." class="form-control" id="id_id">
+            </div>
+            <div class="input-group input-group-lg my-4">
+              <label for="id_mdp" class="input-group-text">Password</label>
+              <input type="password" name="mdp" placeholder="Password..." class="form-control" id="id_mdp">
+              <button type="button" name="button" class="btn btn-dark input-group-btn gener w-100 my-3">GENERER</button>
+            </div>
+            <div class="input-group input-group-lg my-4">
+              <label for="id_nom" class="input-group-text">Nom </label>
+              <input type="text" name="nom" placeholder="Nom..." class="form-control" id="id_nom">
+            </div>
+            <div class="input-group input-group-lg my-4">
+              <label for="id_prenom" class="input-group-text">Prenom </label>
+              <input type="text" name="prenom" placeholder="Prenom..." class="form-control" id="id_prenom">
+            </div>
+            <div class="text-center my-3">
+              <button type="submit" name="button" class="btn btn-success w-50 fw-bold py-2">EDIT</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
+  </div>
+</section>
+  <section class="container bg-main p-0">
+    {% include 'partials/header.html' %}
+    {% block Page %}
+    {% endblock Page%}
+    {% include 'partials/footer.html' %}
+  </section>
+</body>
+</html>

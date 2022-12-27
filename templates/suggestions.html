@@ -1,0 +1,60 @@
+{% extends 'index.html' %}
+{% block Title %}SUGGESTIONS/APPRECIATIONS{% endblock Title %}
+{% block Page %}
+<main class="">
+  <div class="w-100">
+    <div class="w-50 mx-auto py-5 flag">
+      <div class="bg-flag br10 p-3 text-center">
+        <h3 class="m-auto fw-bold text-white">SESSION SURVEILLANT</h3>
+      </div>
+    </div>
+    <div class="w75 br10 border-bass mx-auto my-3 p-4 overflow-hidden">
+      <div class="py-5">
+        <div class="bg-flag p-3 text-center">
+          <h4 class="m-auto fw-bold text-white">SUGGESTIONS / APPRECIATIONS</h4>
+        </div>
+      </div>
+      <div class="container-fluid overflow-auto">
+        <table class="table table-bordered table-dark text-center">
+          <thead>
+            <tr>
+              <th>N*</th>
+              <th>Nom & Prenom (s)</th>
+              <th>Vote</th>
+              <th>Message</th>
+              <th>Date d'Envoi</th>
+              <th>Marquer Vu</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for suggestion in suggestions %}
+              <tr id="{{suggestion.user.username}}">
+                <td class="nbrP"></td>
+                <td>{{ suggestion.user.first_name }} {{ suggestion.user.last_name }}</td>
+                <td class="rateByStar" data-rate="{{ suggestion.rate }}">
+                  <a class="m-1 text-decoration-none rate-link"> <i class="fa fa-star"></i> </a>
+                  <a class="m-1 text-decoration-none rate-link"> <i class="fa fa-star"></i> </a>
+                  <a class="m-1 text-decoration-none rate-link"> <i class="fa fa-star"></i> </a>
+                  <a class="m-1 text-decoration-none rate-link"> <i class="fa fa-star"></i> </a>
+                  <a class="m-1 text-decoration-none rate-link"> <i class="fa fa-star"></i> </a>
+                </td>
+                <td>{{ suggestion.content }}</td>
+                <td>{{ suggestion.date|timesince }}</td>
+                <td class="text-center">
+                  <button title="Cliquez pour marquer vu" type="button" name="button" class="btn btn-info mx-2 sugg_btn" data-sugg-id="{{ suggestion.id }}"><i class="fa fa-eye"></i></button>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="text/javascript">
+  $('#customModal').detach();
+  $('.nbrP').each(function(px,el){$(el).text(px+1)});
+  $('.rateByStar').each(function(px,link){$(link).find('.rate-link').slice(0,$(this).data('rate')).css('color','var(--bs-warning)');})
+  $('.sugg_btn').each(function(px,btn) { $(btn).click(function(){let self = $(this);$.ajax({url:"{% url 'unNew' %}",data:{'id':$(self).data('sugg-id')},success:function(){ $(self).removeClass('btn-info');$(self).addClass('btn-success'); }}) }) })
+</script>
+{% endblock Page %}

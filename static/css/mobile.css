@@ -1,0 +1,17 @@
+@media (max-width: 992px) {
+  html,body {overflow-x: hidden;}
+  .border-bass {width: 95%!important;border-width: 5px!important;}
+  main .flag {width: 80%!important}
+  main .container-fluid,main .input-group {padding: 0!important}
+  main .vote_label {margin: 0!important}
+  main .teacher .input-group,.dis4 {flex-direction: column!important;}
+  main .teacher .input-group input,.dis4 input {width: 100%!important;margin: 3% 0;border-radius: 8px!important;}
+  main .dis4 label {justify-content: center;}
+  main .sDown i:last-child {display: block}
+  main .sDown i:first-child {display: none}
+  header {padding: 2%!important}
+  header #id_user,#id_inbox {width: 75%;}
+  footer {text-align: center;}
+  main .res-tb {margin: 2% auto!important;}
+  main .card {width: 100%;margin: 3% 0!important}
+}

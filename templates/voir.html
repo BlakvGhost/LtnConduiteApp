@@ -1,0 +1,56 @@
+{% extends 'index.html' %}
+{% block Title %} LA LISTE DES ENSEIGNANTS {% endblock Title %}
+{% block Page %}
+<main class="">
+  <div class="w-100">
+    <div class="w-50 mx-auto py-5 flag">
+      <div class="bg-flag br10 p-3 text-center">
+        <h3 class="m-auto fw-bold text-white">SESSION SURVEILLANT</h3>
+      </div>
+    </div>
+    <div class="w75 br10 border-bass mx-auto my-3 p-4 overflow-hidden">
+      <div class="py-5">
+        <div class="bg-flag p-3 text-center">
+          <h4 class="m-auto fw-bold text-white">La liste des professeurs présents dans la base de donées</h4>
+        </div>
+      </div>
+      <div class="container-fluid overflow-auto">
+        <table class="table table-bordered table-dark text-center">
+          <thead>
+            <tr>
+              <th>N*</th>
+              <th>Nom & Prenom (s)</th>
+              <th>Numero D'identification</th>
+              <th>Mot de Passe</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <input type="hidden" name="id" value="" id="id_hid">
+            <input type="hidden" name="active" value="" id="id_active">
+            {% for teacher in teachers %}
+              <tr id="{{teacher.username}}">
+                <td class="nbrP"></td>
+                <td>{{ teacher.first_name }} {{ teacher.last_name }}</td>
+                <td>{{ teacher.username }}</td>
+                <td>*******</td>
+                <td class="text-center">
+                  <button title="Delete" data-bs-toggle="modal" type="button" name="button" class="btn btn-danger delete_btn mx-2" data-id="{{ teacher.id }}" data-name="{{ teacher.first_name }} {{ teacher.last_name }}" data-user-id="{{ teacher.username }}" data-bs-target="#deleteConfirmation"><i class="fa fa-trash"></i></button>
+                  <button title="Edit" data-bs-toggle="modal" data-bs-target="#editConfirmation" type="button" name="button" class="btn btn-success mx-2 edit_btn" data-id="{{ teacher.id }}" data-name="{{ teacher.first_name }} {{ teacher.last_name }}" data-nom="{{ teacher.first_name }}" data-prenom="{{ teacher.last_name }}" data-user-id="{{ teacher.username }}"><i class="fa fa-edit"></i> </button> </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="text/javascript">
+  function setPosition(){$('.nbrP').each(function(px,el){$(el).text(px+1)})}
+  $('.trueDelete').click(function(){
+    let active = $('#id_active').val()
+    $.ajax({url:"{% url 'deleteUser' %}",data:$('#id_hid').serialize(),success:function(e){if (e == true){$(active).detach();setPosition()}}})
+  });
+  setPosition();
+</script>
+{% endblock Page %}

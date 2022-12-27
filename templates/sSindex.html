@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+{% block Title %}BIENVENU SURVEILLANT{% endblock Title %}
+{% block Page %}
+<main class="">
+  <div class="w-100">
+    <div class="w-50 mx-auto py-5 flag">
+      <div class="bg-flag br10 p-3 text-center">
+        <h3 class="m-auto fw-bold text-white">SESSION SURVEILLANT</h3>
+      </div>
+    </div>
+    <div class="w75 br10 border-bass mx-auto my-3 p-4">
+      <div class="py-5">
+        <div class="bg-flag p-3 text-center">
+          <h4 class="m-auto fw-bold text-white">SELECTIONNER L'ACTION A EFFECTUER</h4>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="col-6 mx-auto my-3">
+          <a href="{% url 'inscrire' %}" class="btn btn-lg btn-dark py-3 w-100" role="button">INSCRIRE UN ENSEIGNANT</a>
+        </div>
+        <div class="col-6 mx-auto my-3">
+          <a href="{% url 'inscrireDeja' %}" class="btn btn-lg btn-dark py-3 w-100" role="button">ENSEIGNANTS INSCRITS</a>
+        </div>
+        <div class="col-6 mx-auto my-3">
+          <a href="{% url 'voirVote' %}" class="btn btn-lg btn-dark py-3 w-100" role="button">VOIR LES VOTES</a>
+        </div>
+        <div class="col-6 mx-auto my-3">
+          <a href="{% url 'passwordReset' %}" class="btn btn-lg btn-dark py-3 w-100" role="button">VOIR LES DEMANDES DE REINITILISATION DE MOT DE PASSE</a>
+        </div>
+        <div class="col-6 mx-auto my-3">
+          <a href="{% url 'suggestions' %}" class="btn btn-lg btn-dark py-3 w-100" role="button">VOIR LES SUGGESTIONS</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock Page %}

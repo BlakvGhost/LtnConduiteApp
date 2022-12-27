@@ -1,0 +1,57 @@
+{% extends 'index.html' %}
+{% block Title %}PAGE IMPRIMABLE DES VOTES{% endblock Title %}
+{% block Page %}
+<main class="bg-white border">
+  <div class="w-100">
+    <div class="w-50 mx-auto py-2 flag">
+      <div class="br10 text-center">
+        <h3 class="m-auto fw-bold">SESSION SURVEILLANT</h3>
+      </div>
+    </div>
+    <div class="mx-4 my-1">
+      <div class="">
+        <div class="p-3 text-center">
+          <h5 class="mx-auto fw-bold fst-italic my-2">Le résumé des notes de conduite au Lycée Technique de Natitingou !</h5>
+          <a onclick="window.print()" class="btn btn-outline-dark" role="button">Cliquer ici pour imprimer la page</a>
+        </div>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <table class="table table-bordered text-center">
+          <thead>
+            <tr>
+              <th>Classe</th>
+              <th>Nombre de vote</th>
+              <th>Moyenne</th>
+              <th>Appreciation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="4" class="fw-bold">NIVEAU I</td>
+            </tr>
+            {% for classe_x in classeI %}
+              <tr>
+                <td>{{classe_x}}</td>
+                <td>{% for classe,total in totals %}{% if classe == classe_x %}{{ total }} {% endif %}{% endfor %}</td>
+                <td>{% for classe,moyenne,avis in moyennes %}{% if classe == classe_x %}{{ moyenne|floatformat:2 }} {% endif %}{% endfor %}</td>
+                <td>{% for classe,moyenne,avis in moyennes %}{% if classe == classe_x %}{{ avis }} {% endif %}{% endfor %}</td>
+               </tr>
+            {% endfor %}
+            <tr>
+              <td colspan="4" class="fw-bold">NIVEAU II</td>
+            </tr>
+            {% for classe_x in classeII %}
+              <tr>
+                <td>{{classe_x}}</td>
+                <td>{% for classe,total in totals %}{% if classe == classe_x %}{{ total }} {% endif %}{% endfor %}</td>
+                <td>{% for classe,moyenne,avis in moyennes %}{% if classe == classe_x %}{{ moyenne|floatformat:2 }} {% endif %}{% endfor %}</td>
+                <td>{% for classe,moyenne,avis in moyennes %}{% if classe == classe_x %}{{ avis }} {% endif %}{% endfor %}</td>
+               </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+</main>
+{% endblock Page %}

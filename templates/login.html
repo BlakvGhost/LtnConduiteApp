@@ -1,0 +1,123 @@
+{% extends 'index.html' %}
+{% block Title %} LOGIN {% endblock Title %}
+{% block Page %}
+<div class="restoreMdp">
+  <div class="modal fade" id="restoreMdp" tabindex="-1" aria-labelledby="restoreMdpLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="restoreMdpLabel"><span class="fw-bold">Demande de reinitialisation mot de passe</span> </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <form class="" action="{% url 'askNewPasswd' %}" method="post">
+          {% csrf_token %}
+          <div class="input-group input-group-lg my-3 p-2 rounded">
+            <label for="user" class="input-group-text">Votre Nom</label>
+            <select class="form-select" name="user" id="user" style="height:60px;">
+              {% for user in users %}
+              <option value="{{user.id}}">{{user.first_name}} {{user.last_name}}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="input-group input-group-lg my-4">
+            <label for="id_email" class="input-group-text">Email</label>
+            <input type="email" name="email" placeholder="Your email" class="form-control" id="id_email">
+            <small class="form-text w-100 mt-2 fst-italic" id="emailHelp"><i class="fa fa-info-circle"></i>&nbsp; Entrer un email valide</small>
+          </div>
+          <div class="form-group my-2">
+            <label for="id_remarque" class="form-group-text">Remarque</label>
+            <textarea name="message" rows="8" cols="80" id="id_remarque" class="w-100"></textarea>
+            <small class="form-text w-100 mt-2 fst-italic" id="RemarqueHelp"><i class="fa fa-info-circle"></i>&nbsp; Facultative</small>
+          </div>
+          <div class="my-3">
+            <small class="form-text w-100 mt-2" id="RemarqueHelp"><i class="fa fa-info-circle"></i>&nbsp; Cette demande peut prendre une journée ou plus,cela dependra de la disponilité du Surveillant,Entrer votre email afin de recevoir le nouveau mot de passe une fois reinitialisé</small>
+          </div>
+          <div class="text-center my-3">
+            <button type="submit" name="button" class="btn btn-success w-50 fw-bold py-2">REQUEST</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{%if warn|length is not 0 %}
+<div class="restoreMdp">
+  <button type="button" name="button" class="okRestorMdpLabel d-none" data-bs-target="#restorMdp" data-bs-toggle="modal"></button>
+  <div class="modal fade" id="restorMdp" tabindex="-1" aria-labelledby="restorMdpLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="restorMdpLabel"><span class="fw-bold">Demande de reinitialisation de mot de passe</span> </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <h4 class="text-dark fw-bold">{{warn}}</h4>
+        <a role="button" href="{% url 'login' %}" class="btn btn-primary">Cancel</a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{%endif%}
+<main class="">
+  <div class="w-100">
+    <div class="w50 mx-auto py-5 flag">
+      <div class="bg-flag br10 p-3 text-center">
+        <h3 class="m-auto fw-bold text-white">CONNECTEZ-VOUS !</h3>
+      </div>
+    </div>
+    <pre>
+    </pre>
+    <div class="w75 br10 border-bass mx-auto my-3 p-4">
+      <form class="" action="" method="post">
+        {% csrf_token %}
+        {%if info|length is not 0 %}
+        <div class="alert alert-danger alert-dismissible" role="alert" id="liveAlert">
+          <strong>Error!</strong> {{info}} <a class="btn-link" data-bs-toggle="modal" data-bs-target="#restoreMdp">you cant reset</a>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {%endif%}
+        <div class="input-group input-group-lg my-3 p-2 rounded">
+          <label for="user_category" class="input-group-text">Votre category</label>
+          <select class="form-select" name="category" id="user_category" style="height:60px;">
+            <option value="0" selected>Enseignant</option>
+            <option value="1">Surveillant</option>
+          </select>
+        </div>
+        <div class="input-group input-group-lg my-3 p-2 rounded">
+          <label for="user_name" class="input-group-text">Votre Nom</label>
+          <select class="form-select" name="user_name" id="user_name" style="height:60px;">
+            {% for user in users %}
+            <option value="{{user.username}}">{{user.first_name}} {{user.last_name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="input-group input-group-lg my-3 p-2 rounded">
+          <label for="user_pass" class="input-group-text">Password</label>
+          <input type="password" name="mdp" placeholder="8 Character min" id="user_pass" class="form-control {%if info|length is not 0 %}is-invalid{%endif%}" style="height:60px;">
+          <small class="form-text invalid-feedback w-100 mt-2 fst-italic" id="passHelp"><i class="fa fa-info-circle"></i>&nbsp; Please enter a valid Password</small>
+        </div>
+        <div class="my-2 px-3">
+          <a class="btn-link" data-bs-toggle="modal" data-bs-target="#restoreMdp">Avez-vous oublier votre mot de passe ?</a>
+        </div>
+        <div class="text-center my-3">
+          <button type="submit" name="button" class="btn btn-dark w-50 fw-bold py-2">SE CONNECTER</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+<script type="text/javascript">
+  $('.okRestorMdpLabel').click();
+  let oldHtml = $('#user_name').html();
+  $('#user_category').change(function() {
+    if ($(this).val() == 1){
+      $('#user_name').html("<option value=\"SURVEILLANT1\">SURVEILLANT 1</option><option value=\"suv2\">SURVEILLANT 2</option> ");
+    }else{
+      $('#user_name').html(oldHtml);
+    }
+  })
+</script>
+{% endblock Page %}

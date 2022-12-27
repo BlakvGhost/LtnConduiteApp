@@ -1,0 +1,87 @@
+{% extends 'index.html' %}
+{% block Title %}VOIR LES VOTES{% endblock Title %}
+{% block Page %}
+<main class="">
+  <div class="w-100">
+    <div class="w-50 mx-auto py-5 flag">
+      <div class="bg-flag br10 p-3 text-center">
+        <h3 class="m-auto fw-bold text-white">SESSION SURVEILLANT</h3>
+      </div>
+    </div>
+    <div class="br10 border-bass my-3 p-4 res-tb">
+      <div class="py-5">
+        <div class="bg-flag p-3 text-center">
+          <h5 class="mx-auto fw-bold text-white fst-italic my-2">Voici le résumé des notes des professeurs</h5>
+          <h5 class="mx-auto fw-bold text-white fst-italic my-2">Si vous voulez une version plus simplifiée avec moins de détails</h5>
+          <a href="{% url 'printable' %}" class="btn btn-dark" role="button">Cliquer ici</a>
+        </div>
+        <div class="p-3 text-center">
+          <h5 class="mx-auto fw-bold text-white fst-italic my-3">Quick Shortcut</h5>
+          <div class="row">
+            <a href="#niveau1" class="btn btn-dark col mx-2" role="button">Niveau I</a>
+            <a href="#niveau2" class="btn btn-dark col mx-2" role="button">Niveau II</a>
+          </div>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="" id="niveau1">
+          <div class="text-center">
+            <a class="btn btn-light col mx-2" role="button">Niveau I</a>
+          </div>
+          <div class="row flex-wrap justify-content-between">
+            {% for vote in classeI %}
+            <div class="card text-dark border bg-light m-3 col col-5 px-0 shadow" data-u="{{ vote }}">
+              <div class="card-header" data-bs-toggle="collapse" data-bs-target="#stud{{ vote|cut:" "}}">
+                <a class="text-decoration-none link-dark h5">{{ vote }} &nbsp; <i class="fa fa-chevron-down"></i> </a>
+                <span class="badge bg-primary rounded-pill fa-pull-right">{% for classe,moyenne,avis in moyennes %}{% if classe == vote %}{{ moyenne|floatformat:2 }} {% endif %}{% endfor %}</span>
+              </div>
+              <div class="card-body collapse" id="stud{{ vote|cut:" "}}">
+                <h5 class="card-title"><a href="#" class="link-danger h4 text-decoration-none">Details</a></h5>
+                <ol class="list-group list-group-numbered">
+                  {% for votes in niveau1 %}
+                    {% if votes.classe == vote %}
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <a class="text-decoration-none link-dark h5">{{ votes.user.first_name }} {{ votes.user.last_name }} &nbsp;</a>
+                    <span class="badge bg-primary rounded-pill fa-pull-right">{{ votes.note }}</span>
+                  </li>
+                    {% endif %}
+                  {% endfor %}
+                </ol>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="" id="niveau2">
+          <div class="text-center">
+            <a class="btn btn-light col mx-2" role="button">Niveau II</a>
+          </div>
+          <div class="row flex-wrap justify-content-between">
+            {% for vote in classeII %}
+            <div class="card text-dark border bg-light m-3 col col-5 px-0 shadow" data-u="{{ vote }}">
+              <div class="card-header" data-bs-toggle="collapse" data-bs-target="#stud{{ vote|cut:" "}}">
+                <a class="text-decoration-none link-dark h5">{{ vote }} &nbsp; <i class="fa fa-chevron-down"></i> </a>
+                <span class="badge bg-primary rounded-pill fa-pull-right">{% for classe,moyenne,avis in moyennes %}{% if classe == vote %}{{ moyenne|floatformat:2 }} {% endif %}{% endfor %}</span>
+              </div>
+              <div class="card-body collapse" id="stud{{ vote|cut:" "}}">
+                <h5 class="card-title"><a href="#" class="link-danger h4 text-decoration-none">Details</a></h5>
+                <ol class="list-group list-group-numbered">
+                  {% for votes in niveau2 %}
+                    {% if votes.classe == vote %}
+                  <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <a class="text-decoration-none link-dark h5">{{ votes.user.first_name }} {{ votes.user.last_name }} &nbsp;</a>
+                    <span class="badge bg-primary rounded-pill fa-pull-right">{{ votes.note }}</span>
+                  </li>
+                    {% endif %}
+                  {% endfor %}
+                </ol>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock Page %}

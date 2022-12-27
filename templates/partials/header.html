@@ -1,0 +1,60 @@
+{% load static %}
+<header class="bg-custom w-100 py-2 px-5 position-relative">
+  <div class="my-3">
+    <a href="{% url 'login' %}"><img src="{% static 'img/logo-f.png' %}" alt="lycee technique de Natitingou"></a>
+  </div>
+  <div class="conntainer-fluid my-2">
+    <div class="row flex-nowrap">
+      <div class="col col-10">
+        <form class="" action="" method="get">
+          <div class="input-group br10">
+            <button type="submit" class="btn input-group-btn btn-light"><i class="bi bi-search fa-1x"></i></button>
+            <input type="text" name="q" placeholder="Enter a Keyword for searching" class="form-control">
+          </div>
+        </form>
+      </div>
+      <div class="col text-center">
+        {% if user.is_staff%}
+        <div class="">
+          <button type="button" name="button" class="btn position-relative p-0" data-bs-toggle="collapse" data-bs-target="#id_inbox" title="Notifications"><i class="bi bi-bell fa-2x text-white"></i><span class="badge bg-primary rounded-circle position-absolute top-0 end-0">{{Htotal}}</span> </button>
+        </div>
+        <div class="position-absolute w25 text-start shadow collapse end-0 overflow-hidden" id="id_inbox">
+          <div class="sub_header">
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-control disable text-center fw-bold"><i class="fa fa-comments"></i>&nbsp; Notifications</li>
+              {% for user,pass in passN %}
+                <li class="list-group-item list-group-item-control"><a href="{% url 'validePasswordDetail' user.id %}" class="text-decoration-none"><i class="bi bi-key text-succes"></i>&nbsp; {{user.first_name}} {{user.last_name}} demande un mot de passe <i class="text-danger">[ {{ pass.date|timesince }} ]</i> </a> </li>
+              {% endfor %}
+              {% for review in revwN %}
+                <li class="list-group-item list-group-item-control"><a href="{% url 'suggestions' %}" class="text-decoration-none"><i class="bi bi-bell text-success"></i>&nbsp; {{review.user.first_name}} {{review.user.last_name}} à envoyer une suggestion/appreciation <i class="text-danger">[ {{ review.date|timesince }} ]</i></a> </li>
+              {% endfor %}
+              {% for review in revwU %}
+                <li class="list-group-item list-group-item-control"><a href="{% url 'suggestions' %}" class="text-decoration-none"><i class="bi bi-bell text-succes"></i>&nbsp; {{review.user.first_name}} {{review.user.last_name}} à modifer sa suggestion/appreciation <i class="text-danger">[ {{ review.date|timesince }} ]</i></a> </li>
+              {% endfor %}
+            </ul>
+            <ul class="list-group border-top">
+              <li class="list-group-item list-group-item-control disable text-center fw-bold"><i class="fa fa-user"></i>&nbsp; User Info</li>
+              <li class="list-group-item list-group-item-control"><span class="fw-bold">NOM : </span><span>{{user.first_name}} {{user.last_name}}</span></li>
+              <li class="list-group-item list-group-item-control"><a href="{% url 'logoutUser' %}" class="btn btn-dark w-100" role="button">Log Out</a></li>
+            </ul>
+          </div>
+        </div>
+        {% else %}
+        <div class="">
+          <button type="button" name="button" class="btn p-0" data-bs-toggle="collapse" data-bs-target="#id_user"><i class="bi bi-person-circle fa-2x text-white"></i></button>
+        </div>
+        <div class="position-absolute w25 text-start shadow collapse end-0 overflow-hidden" {% if user.is_authenticated %} id="id_user" {% endif %}>
+          <div class="sub_header">
+            <ul class="list-group">
+              <li class="list-group-item list-group-item-control"><span class="fw-bold">NOM : </span><span>{{user.first_name}} {{user.last_name}}</span></li>
+              <li class="list-group-item list-group-item-control"><span class="fw-bold">ID : </span><span>{{user.username}}</span></li>
+              <li class="list-group-item list-group-item-control"><span class="fw-bold">LYCEE : </span><span>LT NATITINGOU</span></li>
+              <li class="list-group-item list-group-item-control"><a href="{% url 'logoutUser' %}" class="btn btn-dark w-100" role="button">Log Out</a>{% if user.is_staff == False%}<a class="btn btn-dark w-100 my-3" data-bs-toggle="modal" data-bs-target="#reviewModal" role="button">Apprecier</a> {% endif %} </li>
+            </ul>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</header>

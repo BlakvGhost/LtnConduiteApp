@@ -1,0 +1,50 @@
+{% extends 'index.html' %}
+{% block Title %}INSCRIRE UN ENSEIGNANT{% endblock Title %}
+{% block Page %}
+<main class="inscrire">
+  <div class="w-100">
+    <div class="w-50 mx-auto py-5 flag">
+      <div class="bg-flag br10 p-3 text-center">
+        <h3 class="m-auto fw-bold text-white">SESSION SURVEILLANT</h3>
+      </div>
+    </div>
+    <div class="w75 br10 border-bass mx-auto my-3 p-4">
+      <div class="py-5">
+        <div class="bg-flag p-3 text-center">
+          <h4 class="m-auto fw-bold text-white">INSCRIRE UN ENSEIGNANT</h4>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <form class="" action="" method="post">
+          {% csrf_token %}
+          {%if info|length is not 0 %}
+          <div class="alert alert-success alert-dismissible" role="alert" id="liveAlert">
+            <strong>Sucess!</strong> {{info}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          {%endif%}
+          <div class="input-group input-group-lg my-4 dis4">
+            <label for="id_id" class="input-group-text">ID</label>
+            <input type="text" name="id" placeholder="ID..." class="form-control" style="height:60px" id="id_id" autocomplete="off">
+            <label for="id_mdp" class="input-group-text">Password</label>
+            <input type="password" name="mdp" placeholder="Password..." class="form-control" id="id_mdp" autocomplete="off">
+            <button type="button" name="button" class="btn btn-dark input-group-btn gener">GENERER</button>
+          </div>
+          <div class="input-group input-group-lg my-4">
+            <label for="id_nom" class="input-group-text">Nom </label>
+            <input type="text" name="nom" placeholder="Nom..." class="form-control" style="height:60px" id="id_nom">
+            <label for="id_prenom" class="input-group-text">Prenom </label>
+            <input type="text" name="prenom" placeholder="Prenom..." class="form-control" style="height:60px" id="id_prenom">
+          </div>
+          <div class="text-center my-3">
+            <button type="submit" name="button" class="btn btn-dark w-50 fw-bold py-2">ENREGISTRER</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+<script type="text/javascript">
+  $('#customModal').detach();
+</script>
+{% endblock Page %}
