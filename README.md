@@ -1,6 +1,5 @@
 
 # LtnConduiteApp
-
 [LtnConduiteApp](https://ltnconduiteapp.pythonanywhere.com/) is a small web application designed for the first time on behalf of the Lycée Technique de Natitingou for the vote of the pipes by teachers for each class.
 It is mainly written with the Django framework and using JQuery in Front.
 The application is divided into two parts:
