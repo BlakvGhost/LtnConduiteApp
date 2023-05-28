@@ -1,6 +1,6 @@
 
 # LtnConduiteApp
-[LtnConduiteApp](https://ltnconduiteapp.pythonanywhere.com/) is a small web application designed for the first time on behalf of the Lycée Technique de Natitingou for the vote of the pipes by teachers for each class.
+[LtnConduiteApp](https://ltnconduite.kabirou-alassane.com/) is a small web application designed for the first time on behalf of the Lycée Technique de Natitingou for the vote of the pipes by teachers for each class.
 It is mainly written with the Django framework and using JQuery in Front.
 The application is divided into two parts:
   - A first for the school supervisor who can add and edit the list of teachers authorized to vote as well as view the results of the votes and the behavior retained for each class at the end of the votes.
@@ -38,7 +38,7 @@ python3 manage.py runserver
 
 #### For login Form, connect you as "SURVEILLANT"
  
- Password: admin
+ Password: ltnadmin
 
 ### For Login in django admin as Super User use:
 
